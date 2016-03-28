@@ -80,7 +80,7 @@
   * 传入两个参数, obj 代表移动的对象
   * time 动画时间
   * */
-  function titleMove(time,fn) {
+  function titleMove(time) {
     var title = document.querySelector('#title');
     title.style.transitionDuration = time+'ms';
     title.style.transform ='translate(0,7em)';
@@ -103,24 +103,6 @@
   }
   getMove();
 
-  var timer = null;
-  function audioPlay() {
-    timer = setTimeout(function () {
-      var $audio = $('<audio src="media/Chun.m4a" autoplay loop/>');
-      $('#media').append($audio);
-    },6000);
-  }
-  audioPlay();
-
-  function audioMuted() {
-    clearInterval(timer);
-    $('audio')[0] .muted = 'true';
-  }
-  $('body').click(function () {
-    audioMuted();
-    console.log(1)
-  });
-  
   /*
   * 键盘事件
   * 下一个古诗
@@ -129,6 +111,12 @@
   * 需要帮助? shift+?
   * 切换主题 theme
   * */
+  document.onkeydown = function (e) {
+    if (e.keyCode === 77){
+        var audio = document.querySelector('#media audio');
+        audio.muted = !audio.muted;
+    }
+  };
 
   window.onload = function () {
     titleMove(3000);
