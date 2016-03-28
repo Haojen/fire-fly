@@ -2,7 +2,8 @@
   "name": "light-cricle",
   "private": true,
   "dependencies": {
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "bootstrap": "^3.3.6"
   },
   "devDependencies": {
     "chai": "^3.5.0",

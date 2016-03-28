@@ -10,18 +10,18 @@
   function createCricle( number,positionY) {
     var whileCount = number,
         i = 0 ,
-        container = document.querySelector('.container'),
+        container = document.querySelector('.container-main'),
         div,
         random = 0,
         randomY = 0,
         onOff  = false,
         divParent = document.createElement('div');
-        positionY? onOff = true:onOff= false;
+        divParent.className = 'cricleParent';
+    positionY? onOff = true:onOff= false;
     for ( ;i<whileCount ;i++){
       random = Math.floor(Math.random() * 6)+ 2; //掌握粒子大小范围
       // console.log(random); //测试粒子大小
       div = document.createElement('div');
-      div.id = 'cricleParent';
       if (onOff){
         randomY = Math.floor(Math.random()*400+1);
         div.style.bottom = randomY+'px';
@@ -38,10 +38,9 @@
 
   //自動粒子效果
   setInterval(function () {
-    $("#cricleParent").empty();
+    $(".cricleParent").remove();
     createCricle(80);
     getMove();
-    console.log(123)
   },65000);
   /*思路
   * 需要获取创建的光圈数量, 从而给不同的光圈指定位置
@@ -103,6 +102,33 @@
       }
   }
   getMove();
+
+  var timer = null;
+  function audioPlay() {
+    timer = setTimeout(function () {
+      var $audio = $('<audio src="media/Chun.m4a" autoplay loop/>');
+      $('#media').append($audio);
+    },6000);
+  }
+  audioPlay();
+
+  function audioMuted() {
+    clearInterval(timer);
+    $('audio')[0] .muted = 'true';
+  }
+  $('body').click(function () {
+    audioMuted();
+    console.log(1)
+  });
+  
+  /*
+  * 键盘事件
+  * 下一个古诗
+  * 上一个古诗
+  * 停止音乐,播放音乐
+  * 需要帮助? shift+?
+  * 切换主题 theme
+  * */
 
   window.onload = function () {
     titleMove(3000);

@@ -1,39 +1,30 @@
 
 //set light cricle style
-html,body,div.container{
+html,body,div.container-main{
   height: 100%;
   padding: 0;
   margin:0 auto;
 }
-// 会覆盖bootstrap默认类
-.clear-fix::after{
-  content: ' ';
-  display: block;
-  height: 0;
-  clear: both;
-}
-*{
-  margin:0;
-  padding:0;
+
+ul{
+  padding: 0;
 }
 h1,p{
-  color: #fff
+  color: rgba(255,255,255,.85);
+  text-shadow: 0 0 5px 5px #fff;
 }
 body{
   //start
-
+  background-image: url("../images/firefly-green.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
   overflow: hidden;
-
-  div.container{
+  div.container-main{
     $opcityVal : 'opacity';
     font-family: "FZZJ-ZZGXKFW";
-    height: 100%;
     //background-image: url("../images/fireflies.jpg");
     //background-image: url("../images/fireflies-green-dark.jpg");
-    background-image: url("../images/firefly-green.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
+
     //自然标题
     #title {
       opacity: 0;
