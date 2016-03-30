@@ -8,18 +8,33 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/switcher-mhz.css">
   </head>
   <body>
     <!-- bower:js -->
-    <div class="container-main">
-      <!--github fork-->
-      <a href="https://github.com/ehazon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+    <div class="container-main color-theme">
+
+       <header>
+         <a href="https://github.com/ehazon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+
+           <div id="test1" class="switcher-mhz">
+             <div class="switcher-btn"></div>
+           </div>
+         <div id="test2" class="switcher-mhz">
+           <div class="switcher-btn"></div>
+         </div>
+         <nav>
+           <button id="setting" class="btn btn-default" style="background-color:transparent;"
+                   data-toggle="popover"  data-placement="auto" data-title="设置"
+           >
+             <span class="glyphicon glyphicon-cog" style="color: #fff;"></span>
+           </button>
+        </nav>
+      </header>
        <section id="title">
-         <h1>
-           入若耶溪
-         </h1>
+         <h1>入若耶溪</h1>
        </section>
-      <section id="storyBoard">
+       <section id="storyBoard">
         <ul class="clear-fix">
           <li>
             <p>孤皇何泛泛</p>
@@ -55,7 +70,7 @@
             <small><a href="https://twitter.com/ehazon" target="_blank" title="haozhen's twitter">@ Mhz</a></small>
           </p>
           <p>
-            <small>Music by Homoeogryllus Japonicus </small>
+            <small>Music by Homoeogryllus Japonicus & John Chun</small>
           </p>
           <p>
             <small>Font <i><small>曾正國行楷繁體</small></i></small>
@@ -63,7 +78,6 @@
           <p>
             <small>Background Image by Google Images Search Support</small>
           </p>
-
         </section>
         <section id="media">
           <audio src="media/Echoes%20of%20Nature%20-%20Midnight%20Serenade.m4a" autoplay loop>
@@ -75,6 +89,21 @@
 
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script>
+      (function($){
+        //start
+          $.fn.extend({
+            switcherMhz :function () {
+              $(this).click(function(){
+                $(this).toggleClass("bg-color");
+                $(this).find('.switcher-btn').toggleClass("off");
+//                $('.bgColor',this).hasClass('bgColor-off')? fn(false) : fn(true);
+              });
+            }
+          });
+          //end
+      })(jQuery);
+    </script>
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
     <!-- endbuild -->

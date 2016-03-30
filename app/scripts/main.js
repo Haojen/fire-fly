@@ -33,15 +33,7 @@
     }
     container.appendChild(divParent);
   }
-  createCricle(40);
-    createCricle(40,true);
 
-  //自動粒子效果
-  setInterval(function () {
-    $(".cricleParent").remove();
-    createCricle(80);
-    getMove();
-  },65000);
   /*思路
   * 需要获取创建的光圈数量, 从而给不同的光圈指定位置
   * 遍历光圈,给每一个光圈指定随机的 left值
@@ -80,11 +72,10 @@
   * 传入两个参数, obj 代表移动的对象
   * time 动画时间
   * */
-  function titleMove(time) {
+  function titleMove() {
     var title = document.querySelector('#title');
-    title.style.transitionDuration = time+'ms';
-    title.style.transform ='translate(0,7em)';
-    title.style.opacity = 12;
+    title.style.transform ='translate(0,2em)';
+    title.style.opacity = 1;
   }
 
   /*
@@ -93,15 +84,14 @@
   * */
   function storyEffect() {
     var aLi = document.querySelectorAll('#storyBoard li'),
-      count =2,i=0,
+      count =0,i=0,
       aLiLen = aLi.length;
     for ( ; i<aLiLen ; i++){
         aLi[i].style.transitionDelay = count + 's';
-        aLi[i].style.opacity = '0.82';
-        count+=0.5;
+        aLi[i].style.opacity = '1';
+        count+=0.45;
       }
   }
-  getMove();
 
   /*
   * 键盘事件
@@ -112,15 +102,37 @@
   * 切换主题 theme
   * */
   document.onkeydown = function (e) {
-    if (e.keyCode === 77){
-        var audio = document.querySelector('#media audio');
-        audio.muted = !audio.muted;
+    switch (e.keyCode){
+      case 77 :
+          var audio = document.querySelector('#media audio');
+          audio.muted = !audio.muted;
+        break;
+      case 67 :
+          var colorTheme = document.querySelector('div.container-main');
+          colorTheme.classList.toggle('color-theme');
+            break;
+      default :
+            // console.log(e.keyCode)
     }
   };
 
+  //执行
+  (function () {
+    createCricle(40);
+    createCricle(40,true);
+    getMove();
+    setInterval(function () {
+      $(".cricleParent").remove();
+      createCricle(80);
+      getMove();
+    },65000);
+
+    })();
   window.onload = function () {
-    titleMove(3000);
+    titleMove();
     storyEffect();
+    $('#test1').switcherMhz();
+    $('#test2').switcherMhz();
   };
 //匿名函数结束
 })(jQuery);

@@ -4,41 +4,59 @@ html,body,div.container-main{
   height: 100%;
   padding: 0;
   margin:0 auto;
+  overflow: hidden;
 }
 
 ul{
   padding: 0;
+  list-style: none;
 }
-h1,p{
-  color: rgba(255,255,255,.85);
-  text-shadow: 0 0 5px 5px #fff;
-}
+
 body{
   //start
-  background-image: url("../images/firefly-green.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  div.container-main{
-    $opcityVal : 'opacity';
-    font-family: "FZZJ-ZZGXKFW";
-    //background-image: url("../images/fireflies.jpg");
-    //background-image: url("../images/fireflies-green-dark.jpg");
+  $opcityVal : 'opacity';
+  div.container-main.color-theme{
+    background-image: url("../images/firefly-green.jpg");
 
-    //自然标题
-    #title {
-      opacity: 0;
-      transition-property:$opcityVal , transform;
-      transition-timing-function: ease;
-      h1 {
-        font-size: 4em;
-        opacity: .9;
-        text-align: center;
-       }
-
+    #title,#storyBoard,footer{
+      color: #fff6de;
+      a{
+        text-decoration: none;
+        color: #fff6de;
       }
+    }
+
+    .light-cricle{
+      background-color: rgba(156,192,99,.87);
+      box-shadow: #7be500 0 0 1.5em 0.1em;
+    }
+  }
+  div.container-main{
+    color: #555;
+    background-size: cover;
+    background-image: url("../images/white.png");
+    transition: background 1.6s;
+    a {
+      text-decoration: none;
+      color: #555;
+    }
+    header nav .popover-body{
+      min-width: 230px;
+    }
+    #title {
+      font-family: SCFwxz;
+      opacity: 0;
+      position: relative;
+      top:12%;
+      transition-property:$opcityVal , transform;
+      transition-duration: 1s;
+      transition-timing-function: ease;
+      text-align: center;
+      margin-bottom: 2%;
+    }
     //诗句
     #storyBoard{
+      font-family: "FZZJ-ZZGXKFW";
       position: relative;
       top:150px;
       text-align: center;
@@ -68,11 +86,10 @@ body{
       bottom: -3.5%;
       min-width:2px;
       min-height: 2px;
-      background-color: rgba(156,192,99,.8);
       border-radius: 50%;
       transition-property: transform , opacity;
       transition-timing-function: linear;
-      box-shadow: #7be500 0 0 1.5em 0.1em;
+      background-color: #333;
       &::after{
         content: ' ';
         display: block;
@@ -87,16 +104,13 @@ body{
       width: 100%;
       text-align: center;
       p{
-        font-size: .76em;
+        font-size: .9em;
         width: 400px;
         margin:0 auto;
-        opacity: .5;
+        //opacity: .5;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
-      a{
-        text-decoration: none;
-        color: #fff;
-      }
+
     }
   }
 //  end
