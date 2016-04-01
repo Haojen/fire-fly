@@ -8,6 +8,9 @@
   transition: background-color .3s linear;
   border:1px solid rgba(0,0,0,.1);
   background-color: #64DD17;
+
+  /*需要注意!!!!*/
+  float: right;
 }
 .switcher-mhz.bg-color{
   background-color: #616161;

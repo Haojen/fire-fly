@@ -17,7 +17,12 @@ body{
   $opcityVal : 'opacity';
   div.container-main.color-theme{
     background-image: url("../images/firefly-green.jpg");
-
+    transition: background 1.6s;
+    header{
+      span.glyphicon-cog{
+        color: #fff;
+      }
+    }
     #title,#storyBoard,footer{
       color: #fff6de;
       a{
@@ -35,13 +40,21 @@ body{
     color: #555;
     background-size: cover;
     background-image: url("../images/white.png");
-    transition: background 1.6s;
-    a {
-      text-decoration: none;
-      color: #555;
-    }
-    header nav .popover-body{
-      min-width: 230px;
+    //设置
+    header .dropdown-mhz{
+      position: relative;
+      .dropdown-menu-mhz{
+        position: absolute;
+        z-index: 1;
+        width: 220px;
+        background: rgba(255, 255, 255, 0.78);
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 1.2em;
+        li{
+          margin:15px 0;
+        }
+      }
     }
     #title {
       font-family: SCFwxz;
@@ -98,7 +111,12 @@ body{
         border-radius: inherit;
       }
     }
+    //页脚
     footer{
+      a {
+        text-decoration: none;
+        color: #555;
+      }
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -112,6 +130,17 @@ body{
       }
 
     }
+
+  //  遮罩
+    .masker{
+      position: absolute;
+      z-index:1;
+      top:0;
+      left:0;
+      width: 100%;
+      height:100%;
+    }
+
   }
 //  end
 }

@@ -1,5 +1,30 @@
 (function ($) {
 //匿名函数开始
+  var keyAndMouseEvents = {
+    changeColorTheme : function () {
+      var colorTheme = document.querySelector('div.container-main');
+      colorTheme.classList.toggle('color-theme');
+      $('#changeColorTheme').switcherMhz();
+      var colorCookieVal = $(colorTheme).hasClass('color-theme');
+      if (!colorCookieVal){
+        colorTheme.style.transition = 'background 1.6s';
+      }
+      $.cookie('colorVal',colorCookieVal.toString(),{
+        expires: 30,
+        path : '/'
+      });
+    },
+    setAudioPlayStatus : function () {
+      var audio = document.querySelector('#media audio');
+      audio.muted = !audio.muted;
+      $('#audioStatus').switcherMhz();
+      var audioStatus = audio.muted;
+      $.cookie('audioStatus',audioStatus.toString(),{
+        expires: 30,
+        path : '/'
+      });
+    }
+  };
 
   /*
   * createCricle函数说明:
@@ -104,19 +129,17 @@
   document.onkeydown = function (e) {
     switch (e.keyCode){
       case 77 :
-          var audio = document.querySelector('#media audio');
-          audio.muted = !audio.muted;
+           keyAndMouseEvents.setAudioPlayStatus();
+
         break;
       case 67 :
-          var colorTheme = document.querySelector('div.container-main');
-          colorTheme.classList.toggle('color-theme');
+           keyAndMouseEvents.changeColorTheme();
+
             break;
       default :
             // console.log(e.keyCode)
     }
   };
-
-  //执行
   (function () {
     createCricle(40);
     createCricle(40,true);
@@ -126,13 +149,62 @@
       createCricle(80);
       getMove();
     },65000);
+    //nav setting
+    (function () {
+      var $set = $('#setting'),
+          $menu = $('.dropdown-mhz .dropdown-menu-mhz');
+      $set.click(function () {
+        $menu.toggleClass('hidden');
+        $('#masker').toggleClass('masker');
+      });
+      $('#masker').click(function () {
+        $menu.toggleClass('hidden');
+        $(this).toggleClass('masker');
+      });
+    })();
+    //nav inside click
+    (function () {
+      $('#audioStatus').click(function () {
+        keyAndMouseEvents.setAudioPlayStatus(this);
+      });
+      $('#changeColorTheme').click(function () {
+        keyAndMouseEvents.changeColorTheme();
+      });
+      (function () {
+        if ($.cookie('colorVal')){
+          var colorTheme = document.querySelector('div.container-main');
+
+          if ($.cookie('colorVal') == 'true'){
+            colorTheme.classList.add('color-theme');
+            $('#changeColorTheme').switcherMhz(true);
+          } else {
+            // $('div.container-main').css('transition','none');
+            colorTheme.classList.remove('color-theme');
+            // $('div.container-main').css('transition','background 1.6s');
+          }
+        }else {
+           $('#changeColorTheme').switcherMhz(true);
+
+        }
+      })();
+      (function () {
+        if ($.cookie('audioStatus')){
+          var audio = document.querySelector('#media audio');
+          if ($.cookie('audioStatus')=='true'){
+            audio.muted = true ;
+            $('#audioStatus').switcherMhz(true);
+          }else{
+            audio.muted = false;
+          }
+        }
+      })();
+    })();
 
     })();
   window.onload = function () {
     titleMove();
     storyEffect();
-    $('#test1').switcherMhz();
-    $('#test2').switcherMhz();
+
   };
 //匿名函数结束
 })(jQuery);

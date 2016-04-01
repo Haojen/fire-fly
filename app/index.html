@@ -7,28 +7,36 @@
     <title>light cricle</title>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/switcher-mhz.css">
+    <link rel="stylesheet" href="styles/main.css">
   </head>
   <body>
     <!-- bower:js -->
     <div class="container-main color-theme">
-
+        <!--is a masker-->
+      <div id="masker" ></div>
        <header>
          <a href="https://github.com/ehazon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
-
-           <div id="test1" class="switcher-mhz">
-             <div class="switcher-btn"></div>
-           </div>
-         <div id="test2" class="switcher-mhz">
-           <div class="switcher-btn"></div>
-         </div>
          <nav>
-           <button id="setting" class="btn btn-default" style="background-color:transparent;"
-                   data-toggle="popover"  data-placement="auto" data-title="设置"
-           >
-             <span class="glyphicon glyphicon-cog" style="color: #fff;"></span>
-           </button>
+           <div class="dropdown-mhz">
+             <button id="setting"   style="background-color:transparent;border: none;">
+               <span class="glyphicon glyphicon-cog" ></span>
+             </button>
+             <ul class="dropdown-menu-mhz hidden">
+               <li id="audioStatus">
+                 音效 <small><i>( 快捷键 M )</i></small> <div class="switcher-mhz"><div class="switcher-btn"></div></div>
+               </li>
+               <li id="changeColorTheme">
+                 主题 <small><i>( 快捷键 C )</i></small> <div class="switcher-mhz"><div class="switcher-btn"></div></div>
+               </li>
+               <li id="aboutMe">
+                 关于
+               </li>
+               <li id="feedBack">
+                 反馈建议
+               </li>
+             </ul>
+           </div>
         </nav>
       </header>
        <section id="title">
@@ -72,33 +80,38 @@
           <p>
             <small>Music by Homoeogryllus Japonicus & John Chun</small>
           </p>
-          <p>
-            <small>Font <i><small>曾正國行楷繁體</small></i></small>
-          </p>
-          <p>
-            <small>Background Image by Google Images Search Support</small>
-          </p>
+          <!--<p>-->
+            <!--<small>Font <i><small>曾正國行楷繁體</small></i></small>-->
+          <!--</p>-->
+          <!--<p>-->
+            <!--<small>Background Image by Google Images Search Support</small>-->
+          <!--</p>-->
         </section>
         <section id="media">
-          <audio src="media/Echoes%20of%20Nature%20-%20Midnight%20Serenade.m4a" autoplay loop>
+          <audio src="media/Zen.m4a" autoplay loop>
             Sorry , you browser not support audio !
           </audio>
         </section>
       </footer>
     </div>
 
+
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/jquery.cookie/jquery.cookie.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script>
       (function($){
         //start
           $.fn.extend({
-            switcherMhz :function () {
-              $(this).click(function(){
-                $(this).toggleClass("bg-color");
+            switcherMhz :function (onOff) {
+                $(this).find('.switcher-mhz').toggleClass("bg-color");
                 $(this).find('.switcher-btn').toggleClass("off");
-//                $('.bgColor',this).hasClass('bgColor-off')? fn(false) : fn(true);
-              });
+              if (typeof onOff == "boolean" ){
+                if (onOff){
+                  $(this).find('.switcher-mhz').addClass('bg-color');
+                  $(this).find('.switcher-btn').addClass('off');
+                }
+              }
             }
           });
           //end
