@@ -6,12 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>light cricle</title>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="styles/switcher-mhz.css">
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
   </head>
   <body>
-    <!-- bower:js -->
     <div class="container-main color-theme">
         <!--is a masker-->
       <div id="masker" ></div>
@@ -24,16 +29,82 @@
              </button>
              <ul class="dropdown-menu-mhz hidden">
                <li id="audioStatus">
-                 音效 <small><i>( 快捷键 M )</i></small> <div class="switcher-mhz"><div class="switcher-btn"></div></div>
+                 <button>
+                   音效 <small><i>( 快捷键 M )</i></small> <div class="switcher-mhz switcher-btn"><div></div></div>
+                 </button>
                </li>
                <li id="changeColorTheme">
-                 主题 <small><i>( 快捷键 C )</i></small> <div class="switcher-mhz"><div class="switcher-btn"></div></div>
+                 <button>
+                   主题 <small><i>( 快捷键 C )</i></small> <div class="switcher-mhz switcher-btn"><div></div></div>
+                 </button>
                </li>
                <li id="aboutMe">
-                 关于
+                 <button data-toggle="modal" data-target="#aboutModal">
+                   关于
+                 </button>
+                 <div class="modal fade bd-example-modal-sm" id="aboutModal" tabindex="-1">
+                   <div class="modal-dialog modal-sm">
+                     <div class="modal-content">
+                       <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         </button>
+                         <h4 class="modal-title text-center" id="aboutModalLabel">关于</h4>
+                       </div>
+                       <div class="modal-body text-center">
+                         <dl>
+                           <dt>Library</dt>
+                           <dd>
+                             <ul>
+                               <li>jQuery & jQuery.cookie</li>
+                               <li>Bootstrap <i>(模态框组件)</i></li>
+                               <li><a href="https://github.com/ehazon/Fire-Fly.git">项目源码</a></li>
+                             </ul>
+                           </dd>
+                         </dl>
+                         <p>作者 <span><i>Mhz</i></span></p>
+                         <p>联系我 : <a href="mailto:ehazomm@gmail.com">ehazomm@gmail.com</a></p>
+                       </div>
+                       <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
                </li>
                <li id="feedBack">
-                 反馈建议
+                 <button data-toggle="modal" data-target="#exampleModal">
+                   反馈建议
+                 </button>
+                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                   <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                       <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                         <h4 class="modal-title text-center" id="exampleModalLabel">反馈建议</h4>
+                       </div>
+                       <div class="modal-body">
+                         <form>
+                           <div class="form-group">
+                             <label for="recipient-name" class="control-label">标题</label>
+                             <input type="text" class="form-control" id="recipient-name">
+                           </div>
+                           <div class="form-group">
+                             <label for="message-text" class="control-label">内容</label>
+                             <textarea class="form-control" id="message-text"></textarea>
+                           </div>
+                           <div class="form-group">
+                             <label for="recipient-contact" class="control-label">你的联系方式</label>
+                             <input type="text" class="form-control" placeholder="选填" id="recipient-contact">
+                           </div>
+                         </form>
+                       </div>
+                       <div class="modal-footer">
+                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                         <button type="button" class="btn btn-primary">反馈</button>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
                </li>
              </ul>
            </div>
@@ -80,43 +151,30 @@
           <p>
             <small>Music by Homoeogryllus Japonicus & John Chun</small>
           </p>
-          <!--<p>-->
-            <!--<small>Font <i><small>曾正國行楷繁體</small></i></small>-->
-          <!--</p>-->
-          <!--<p>-->
-            <!--<small>Background Image by Google Images Search Support</small>-->
-          <!--</p>-->
+          <p>
+            <small>Font <i><small>曾正國行楷繁體</small></i></small>
+          </p>
+          <p>
+            <small>Background Image by Google Images Search Support</small>
+          </p>
         </section>
         <section id="media">
-          <audio src="media/Zen.m4a" autoplay loop>
+          <audio src="./media/Zen.m4a" autoplay loop>
             Sorry , you browser not support audio !
           </audio>
         </section>
       </footer>
     </div>
 
-
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/jquery.cookie/jquery.cookie.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script>
-      (function($){
-        //start
-          $.fn.extend({
-            switcherMhz :function (onOff) {
-                $(this).find('.switcher-mhz').toggleClass("bg-color");
-                $(this).find('.switcher-btn').toggleClass("off");
-              if (typeof onOff == "boolean" ){
-                if (onOff){
-                  $(this).find('.switcher-mhz').addClass('bg-color');
-                  $(this).find('.switcher-btn').addClass('off');
-                }
-              }
-            }
-          });
-          //end
-      })(jQuery);
-    </script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
     <!-- endbuild -->

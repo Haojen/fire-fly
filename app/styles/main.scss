@@ -1,5 +1,11 @@
 
-//set light cricle style
+$icon-font-path: '../fonts/';
+
+// bower:scss
+@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+
 html,body,div.container-main{
   height: 100%;
   padding: 0;
@@ -43,16 +49,37 @@ body{
     //设置
     header .dropdown-mhz{
       position: relative;
+      button{
+        outline: none;
+      }
       .dropdown-menu-mhz{
+        &:hover{
+          cursor: pointer;
+        }
         position: absolute;
         z-index: 1;
         width: 220px;
         background: rgba(255, 255, 255, 0.78);
         border-radius: 5px;
-        padding: 15px;
-        font-size: 1.2em;
+        padding: 5px 15px;
+        font-size: 1.1em;
         li{
           margin:15px 0;
+          &>button{
+            display: block;
+            width: 100%;
+            position: relative;
+            background:none;
+            border:none;
+            text-align: left;
+            &>div{
+              position: absolute;
+              right: 0;
+            }
+          }
+          #aboutModal .modal-dialog{
+            margin-top: 10%;
+          }
         }
       }
     }
@@ -142,5 +169,43 @@ body{
     }
 
   }
+  div.modal-backdrop{
+    z-index: 0;
+  }
 //  end
+}
+
+
+
+.switcher-mhz{
+  display: inline-block;
+  width: 45px;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  transition: background-color .3s linear;
+  border:1px solid rgba(0,0,0,.1);
+  background-color: #64DD17;
+
+  /*需要注意!!!!*/
+  float: right;
+}
+.switcher-mhz.bg-color{
+  background-color: #616161;
+}
+.switcher-btn>div{
+  padding: 0; margin: 0;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  transition: transform .2s linear,background-color .4s;
+  background-color: #fff;
+  position: absolute;
+  right: 0;
+}
+.off>div{
+  transform: translateX(-25px)!important;
 }

@@ -1,7 +1,19 @@
+/* global $ */
+'use strict';
 (function ($) {
 //匿名函数开始
+  (function(){
+    //start
+    $.fn.extend({
+      switcherMhz: function () {
+        $(this).find('.switcher-mhz').toggleClass('bg-color off');
+      }
+    });
+    //end
+  })();
+
   var keyAndMouseEvents = {
-    changeColorTheme : function () {
+    changeColorTheme: function () {
       var colorTheme = document.querySelector('div.container-main');
       colorTheme.classList.toggle('color-theme');
       $('#changeColorTheme').switcherMhz();
@@ -9,19 +21,19 @@
       if (!colorCookieVal){
         colorTheme.style.transition = 'background 1.6s';
       }
-      $.cookie('colorVal',colorCookieVal.toString(),{
+      $.cookie('colorVal', colorCookieVal.toString(), {
         expires: 30,
-        path : '/'
+        path: '/'
       });
     },
-    setAudioPlayStatus : function () {
+    setAudioPlayStatus: function () {
       var audio = document.querySelector('#media audio');
       audio.muted = !audio.muted;
       $('#audioStatus').switcherMhz();
       var audioStatus = audio.muted;
-      $.cookie('audioStatus',audioStatus.toString(),{
+      $.cookie('audioStatus', audioStatus.toString(), {
         expires: 30,
-        path : '/'
+        path: '/'
       });
     }
   };
@@ -32,24 +44,28 @@
   *   cricleNumber 用来指定粒子数量
   *   positionY 為TRUE開啟隨機bottom值
   * */
-  function createCricle( number,positionY) {
+  function createCricle( number, positionY) {
     var whileCount = number,
-        i = 0 ,
+        i = 0,
         container = document.querySelector('.container-main'),
         div,
         random = 0,
         randomY = 0,
-        onOff  = false,
+        onOff = false,
         divParent = document.createElement('div');
         divParent.className = 'cricleParent';
-    positionY? onOff = true:onOff= false;
-    for ( ;i<whileCount ;i++){
-      random = Math.floor(Math.random() * 6)+ 2; //掌握粒子大小范围
+      if (positionY ){
+        onOff = true;
+      }else{
+        onOff = false;
+      }
+    for ( ; i < whileCount; i++ ){
+      random = Math.floor(Math.random() * 6) + 2; //掌握粒子大小范围
       // console.log(random); //测试粒子大小
       div = document.createElement('div');
       if (onOff){
-        randomY = Math.floor(Math.random()*400+1);
-        div.style.bottom = randomY+'px';
+        randomY = Math.floor(Math.random() * 400 + 1);
+        div.style.bottom = randomY + 'px';
       }
       div.style.width = random + 'px';
       div.style.height = random + 'px';
@@ -73,21 +89,21 @@
         bodyOffsetWidth = document.body.offsetWidth,
         bodyOffsetHight = document.body.offsetHeight;
     //初始化位置
-    for ( ;i<divLen ;i++ ){
-      initX = Math.floor(Math.random()*bodyOffsetWidth+100);
-      div[i].style.left = initX +'px';
+    for ( ; i < divLen; i++ ){
+      initX = Math.floor(Math.random() * bodyOffsetWidth + 100);
+      div[i].style.left = initX + 'px';
     }
     //随机核心
     setTimeout(function () {
-      for (var i =0; i<divLen;i++){
+      for ( var j = 0; j < divLen; j++ ){
         var random = Math.random();
-        var offSetX = Math.floor(Math.random()*bodyOffsetWidth+(-bodyOffsetHight*.8));  //粒子左右方向
-        div[i].style.transform = 'translate('+offSetX+'px,'+ (-bodyOffsetHight+ 20) +'px)'; // 粒子的动向步进
-        div[i].style.opacity = '0'; // 粒子透明度
-        div[i].style.transitionDelay = Math.floor(random*25+3)+'s'; //粒子延时
-        div[i].style.transitionDuration = Math.floor(random*30+15)+'s';  //粒子总用时
+        var offSetX = Math.floor(Math.random() * bodyOffsetWidth + ( -bodyOffsetHight * .8));  //粒子左右方向
+        div[j].style.transform = 'translate(' + offSetX + 'px,' + ( -bodyOffsetHight + 20) + 'px)'; // 粒子的动向步进
+        div[j].style.opacity = '0'; // 粒子透明度
+        div[j].style.transitionDelay = Math.floor(random * 25 + 3) + 's'; //粒子延时
+        div[j].style.transitionDuration = Math.floor(random * 30 + 15) + 's';  //粒子总用时
       }
-    },1000);
+    }, 1000);
   }
 
   /*
@@ -99,7 +115,7 @@
   * */
   function titleMove() {
     var title = document.querySelector('#title');
-    title.style.transform ='translate(0,2em)';
+    title.style.transform = 'translate(0,2em)';
     title.style.opacity = 1;
   }
 
@@ -109,12 +125,13 @@
   * */
   function storyEffect() {
     var aLi = document.querySelectorAll('#storyBoard li'),
-      count =0,i=0,
+      count = 0,
+      i = 0,
       aLiLen = aLi.length;
-    for ( ; i<aLiLen ; i++){
+    for ( ; i < aLiLen; i++ ){
         aLi[i].style.transitionDelay = count + 's';
         aLi[i].style.opacity = '1';
-        count+=0.45;
+        count += 0.45;
       }
   }
 
@@ -142,13 +159,13 @@
   };
   (function () {
     createCricle(40);
-    createCricle(40,true);
+    createCricle(40, true);
     getMove();
     setInterval(function () {
-      $(".cricleParent").remove();
+      $('.cricleParent').remove();
       createCricle(80);
       getMove();
-    },65000);
+    }, 65000);
     //nav setting
     (function () {
       var $set = $('#setting'),
@@ -165,7 +182,7 @@
     //nav inside click
     (function () {
       $('#audioStatus').click(function () {
-        keyAndMouseEvents.setAudioPlayStatus(this);
+        keyAndMouseEvents.setAudioPlayStatus();
       });
       $('#changeColorTheme').click(function () {
         keyAndMouseEvents.changeColorTheme();
@@ -174,25 +191,21 @@
         if ($.cookie('colorVal')){
           var colorTheme = document.querySelector('div.container-main');
 
-          if ($.cookie('colorVal') == 'true'){
+          if ($.cookie('colorVal') === 'true'){
             colorTheme.classList.add('color-theme');
-            $('#changeColorTheme').switcherMhz(true);
+            $('#changeColorTheme').switcherMhz();
           } else {
-            // $('div.container-main').css('transition','none');
             colorTheme.classList.remove('color-theme');
-            // $('div.container-main').css('transition','background 1.6s');
           }
-        }else {
-           $('#changeColorTheme').switcherMhz(true);
-
         }
       })();
+
       (function () {
         if ($.cookie('audioStatus')){
           var audio = document.querySelector('#media audio');
-          if ($.cookie('audioStatus')=='true'){
-            audio.muted = true ;
-            $('#audioStatus').switcherMhz(true);
+          if ($.cookie('audioStatus') === 'true'){
+            audio.muted = true;
+            $('#audioStatus').switcherMhz();
           }else{
             audio.muted = false;
           }
@@ -204,7 +217,6 @@
   window.onload = function () {
     titleMove();
     storyEffect();
-
   };
 //匿名函数结束
 })(jQuery);
