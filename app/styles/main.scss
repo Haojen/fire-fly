@@ -13,15 +13,20 @@ html,body,div.container-main{
   overflow: hidden;
 }
 
-ul{
-  padding: 0;
-  list-style: none;
-}
+//debug
+//*{ border:thin solid;}
 
 body{
   //start
-  $opcityVal : 'opacity';
-  div.container-main.color-theme{
+  ul{
+    padding: 0;
+    list-style: none;
+  }
+  a {
+    text-decoration: none;
+    color: #555;
+  }
+  .container-main.color-theme{
     background-image: url("../images/firefly-green.jpg");
     transition: background 1.6s;
     header{
@@ -36,17 +41,17 @@ body{
         color: #fff6de;
       }
     }
-
-    .light-cricle{
+    //粒子样式
+    .light-circle{
       background-color: rgba(156,192,99,.87);
       box-shadow: #7be500 0 0 1.5em 0.1em;
     }
   }
-  div.container-main{
+  .container-main{
     color: #555;
     background-size: cover;
     background-image: url("../images/white.png");
-    //设置
+    //nav set
     header .dropdown-mhz{
       position: relative;
       button{
@@ -83,45 +88,38 @@ body{
         }
       }
     }
-    #title {
-      font-family: SCFwxz;
-      opacity: 0;
-      position: relative;
-      top:12%;
-      transition-property:$opcityVal , transform;
-      transition-duration: 1s;
-      transition-timing-function: ease;
-      text-align: center;
-      margin-bottom: 2%;
-    }
+
     //诗句
     #storyBoard{
-      font-family: "FZZJ-ZZGXKFW";
-      position: relative;
-      top:150px;
+      height: 75%;
+      margin:0 auto;
+      width: 900px;
       text-align: center;
-      ul{
-        margin:0 auto;
-        overflow: hidden;
-        display: inline-block;
-        li{
-          list-style: none;
-          float: left;
-          width: 1em;
-          font-size: 1.8em;
-          overflow: hidden;
-          margin:0 .3em;
-          opacity: 0;
-          transition-property: height,$opcityVal;
-          transition-duration: 5s;
-          transition-timing-function: linear;
-        }
-
+      #title {
+        margin:8% auto 5%;
+        text-align: center;
+        font-size: 52px;
+        font-family: "Songti TC";
+        letter-spacing: 12px;
       }
+        p{
+          opacity: 0;
+          display: inline-block;
+          text-align: left;
+          transition-property: opacity,color;
+          transition-duration: 4.8s;
+          transition-timing-function: linear;
 
+          writing-mode:  vertical-lr;
+          font-size: 46px;
+          font-family: "Kaiti TC";
+          letter-spacing: 20px;
+          height:400px;
+          line-height: 100px;
+        }
     }
     // 粒子
-    .light-cricle{
+    .light-circle{
       position: absolute;
       bottom: -3.5%;
       min-width:2px;
@@ -140,25 +138,18 @@ body{
     }
     //页脚
     footer{
-      a {
-        text-decoration: none;
-        color: #555;
-      }
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
+      height: 20%;width: 100%;
+      //margin-top: -2%;
       p{
         font-size: .9em;
         width: 400px;
         margin:0 auto;
-        //opacity: .5;
+        text-align: center;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
 
     }
-
-  //  遮罩
+    //遮罩
     .masker{
       position: absolute;
       z-index:1;
@@ -166,46 +157,45 @@ body{
       left:0;
       width: 100%;
       height:100%;
+      background-color: rgba(0,0,0,.25);
+      transition: background .5s;
     }
-
   }
-  div.modal-backdrop{
+  .modal-backdrop{
     z-index: 0;
   }
-//  end
-}
+  .switcher-mhz{
+    display: inline-block;
+    width: 45px;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: background-color .3s linear;
+    border:1px solid rgba(0,0,0,.1);
+    background-color: #64DD17;
 
+    /*需要注意!!!!*/
+    float: right;
+  }
+  .switcher-mhz.bg-color{
+    background-color: #616161;
+  }
+  .switcher-btn>div{
+    padding: 0; margin: 0;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    transition: transform .2s linear,background-color .4s;
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+  }
+  .off>div{
+    transform: translateX(-25px)!important;
+  }
 
-
-.switcher-mhz{
-  display: inline-block;
-  width: 45px;
-  height: 20px;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  transition: background-color .3s linear;
-  border:1px solid rgba(0,0,0,.1);
-  background-color: #64DD17;
-
-  /*需要注意!!!!*/
-  float: right;
-}
-.switcher-mhz.bg-color{
-  background-color: #616161;
-}
-.switcher-btn>div{
-  padding: 0; margin: 0;
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  box-sizing: border-box;
-  transition: transform .2s linear,background-color .4s;
-  background-color: #fff;
-  position: absolute;
-  right: 0;
-}
-.off>div{
-  transform: translateX(-25px)!important;
+  //  end
 }

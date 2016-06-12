@@ -1,8 +1,9 @@
 /* global $ */
 'use strict';
 (function ($) {
-//匿名函数开始
-  (function(){
+//main start
+  //插件
+  (function switcher(){
     //start
     $.fn.extend({
       switcherMhz: function () {
@@ -11,8 +12,7 @@
     });
     //end
   })();
-
-  var keyAndMouseEvents = {
+  var eventSet = {
     changeColorTheme: function () {
       var colorTheme = document.querySelector('div.container-main');
       colorTheme.classList.toggle('color-theme');
@@ -27,7 +27,7 @@
       });
     },
     setAudioPlayStatus: function () {
-      var audio = document.querySelector('#media audio');
+      var audio = document.querySelector('#media');
       audio.muted = !audio.muted;
       $('#audioStatus').switcherMhz();
       var audioStatus = audio.muted;
@@ -35,141 +35,22 @@
         expires: 30,
         path: '/'
       });
+    },
+    keyboardEvents: function () {
+      document.onkeydown = function (e) {
+        switch (e.keyCode){
+          case 77 :
+            eventSet.setAudioPlayStatus(); break;
+          case 67 :
+            eventSet.changeColorTheme(); break;
+        }
+      };
     }
   };
-
-  /*
-  * createCricle函数说明:
-  *   生成指定数量的光圈
-  *   cricleNumber 用来指定粒子数量
-  *   positionY 為TRUE開啟隨機bottom值
-  * */
-  function createCricle( number, positionY) {
-    var whileCount = number,
-        i = 0,
-        container = document.querySelector('.container-main'),
-        div,
-        random = 0,
-        randomY = 0,
-        onOff = false,
-        divParent = document.createElement('div');
-        divParent.className = 'cricleParent';
-      if (positionY ){
-        onOff = true;
-      }else{
-        onOff = false;
-      }
-    for ( ; i < whileCount; i++ ){
-      random = Math.floor(Math.random() * 6) + 2; //掌握粒子大小范围
-      // console.log(random); //测试粒子大小
-      div = document.createElement('div');
-      if (onOff){
-        randomY = Math.floor(Math.random() * 400 + 1);
-        div.style.bottom = randomY + 'px';
-      }
-      div.style.width = random + 'px';
-      div.style.height = random + 'px';
-      div.classList.add('light-cricle');
-      divParent.appendChild(div);
-    }
-    container.appendChild(divParent);
-  }
-
-  /*思路
-  * 需要获取创建的光圈数量, 从而给不同的光圈指定位置
-  * 遍历光圈,给每一个光圈指定随机的 left值
-  * 功能
-  * 随机移动
-  * */
-  function getMove() {
-    var i = 0,
-        div = document.querySelectorAll('.light-cricle'),
-        divLen = div.length,
-        initX,
-        bodyOffsetWidth = document.body.offsetWidth,
-        bodyOffsetHight = document.body.offsetHeight;
-    //初始化位置
-    for ( ; i < divLen; i++ ){
-      initX = Math.floor(Math.random() * bodyOffsetWidth + 100);
-      div[i].style.left = initX + 'px';
-    }
-    //随机核心
-    setTimeout(function () {
-      for ( var j = 0; j < divLen; j++ ){
-        var random = Math.random();
-        var offSetX = Math.floor(Math.random() * bodyOffsetWidth + ( -bodyOffsetHight * .8));  //粒子左右方向
-        div[j].style.transform = 'translate(' + offSetX + 'px,' + ( -bodyOffsetHight + 20) + 'px)'; // 粒子的动向步进
-        div[j].style.opacity = '0'; // 粒子透明度
-        div[j].style.transitionDelay = Math.floor(random * 25 + 3) + 's'; //粒子延时
-        div[j].style.transitionDuration = Math.floor(random * 30 + 15) + 's';  //粒子总用时
-      }
-    }, 1000);
-  }
-
-  /*
-  * 主标题移动
-  * 页面加载后,自动从高位置降低位置,
-  * 过程中加上动画
-  * 传入两个参数, obj 代表移动的对象
-  * time 动画时间
-  * */
-  function titleMove() {
-    var title = document.querySelector('#title');
-    title.style.transform = 'translate(0,2em)';
-    title.style.opacity = 1;
-  }
-
-  /*
-  *  用来给文字添加渐变效果
-  *
-  * */
-  function storyEffect() {
-    var aLi = document.querySelectorAll('#storyBoard li'),
-      count = 0,
-      i = 0,
-      aLiLen = aLi.length;
-    for ( ; i < aLiLen; i++ ){
-        aLi[i].style.transitionDelay = count + 's';
-        aLi[i].style.opacity = '1';
-        count += 0.45;
-      }
-  }
-
-  /*
-  * 键盘事件
-  * 下一个古诗
-  * 上一个古诗
-  * 停止音乐,播放音乐
-  * 需要帮助? shift+?
-  * 切换主题 theme
-  * */
-  document.onkeydown = function (e) {
-    switch (e.keyCode){
-      case 77 :
-           keyAndMouseEvents.setAudioPlayStatus();
-
-        break;
-      case 67 :
-           keyAndMouseEvents.changeColorTheme();
-
-            break;
-      default :
-            // console.log(e.keyCode)
-    }
-  };
-  (function () {
-    createCricle(40);
-    createCricle(40, true);
-    getMove();
-    setInterval(function () {
-      $('.cricleParent').remove();
-      createCricle(80);
-      getMove();
-    }, 65000);
-    //nav setting
-    (function () {
-      var $set = $('#setting'),
-          $menu = $('.dropdown-mhz .dropdown-menu-mhz');
+  var userSet = {
+    navSet: function navSet() {
+      var $set = $('#setting');
+      var $menu = $('.dropdown-mhz .dropdown-menu-mhz');
       $set.click(function () {
         $menu.toggleClass('hidden');
         $('#masker').toggleClass('masker');
@@ -178,45 +59,93 @@
         $menu.toggleClass('hidden');
         $(this).toggleClass('masker');
       });
-    })();
-    //nav inside click
-    (function () {
-      $('#audioStatus').click(function () {
-        keyAndMouseEvents.setAudioPlayStatus();
-      });
-      $('#changeColorTheme').click(function () {
-        keyAndMouseEvents.changeColorTheme();
-      });
-      (function () {
-        if ($.cookie('colorVal')){
-          var colorTheme = document.querySelector('div.container-main');
-
-          if ($.cookie('colorVal') === 'true'){
-            colorTheme.classList.add('color-theme');
-            $('#changeColorTheme').switcherMhz();
-          } else {
-            colorTheme.classList.remove('color-theme');
+      (function changeThemeAndSoundMute() {
+        $('#audioStatus').click(function () {
+          eventSet.setAudioPlayStatus();
+        });
+        $('#changeColorTheme').click(function () {
+          eventSet.changeColorTheme();
+        });
+        (function cookieChcek() {
+          if ($.cookie('colorVal')){
+            var colorTheme = document.querySelector('.container-main');
+            if ($.cookie('colorVal') !== 'true'){
+              $('#changeColorTheme').switcherMhz();
+              colorTheme.classList.remove('color-theme');
+            }
           }
-        }
-      })();
+          if ($.cookie('audioStatus')){
+            var audio = document.querySelector('#media audio');
 
-      (function () {
-        if ($.cookie('audioStatus')){
-          var audio = document.querySelector('#media audio');
-          if ($.cookie('audioStatus') === 'true'){
-            audio.muted = true;
-            $('#audioStatus').switcherMhz();
-          }else{
-            audio.muted = false;
+            if ($.cookie('audioStatus') === 'true'){
+              audio.muted = !audio.muted;
+              $('#audioStatus').switcherMhz();
+            }
           }
-        }
-      })();
-    })();
+        })();
 
-    })();
-  window.onload = function () {
-    titleMove();
-    storyEffect();
+      })();
+    }
   };
-//匿名函数结束
+  function setCircle(circleNumber) {
+    var container = document.querySelector('.container-main');
+    var circleAll = document.createElement('div');
+    (function initAmount(){
+      var i = 0, circle;
+      var randomCircleSize = 0;
+      while (i < circleNumber){
+          circle = document.createElement('div');
+          randomCircleSize = Math.floor( Math.random() * 6) + 2;
+          circle.style.width = randomCircleSize + 'px';
+          circle.style.height = randomCircleSize + 'px';
+          circle.classList.add('light-circle');
+          circleAll.appendChild(circle);
+          i++;
+        }
+      })();
+    (function initPosition(){
+      var circle = circleAll.querySelectorAll('.light-circle'),
+        positionX = document.body.offsetWidth,
+        positionY = document.body.offsetHeight;
+      //初始化位置
+      for ( var i = 0; i < circleNumber; i++ ){
+        var initX = Math.floor(Math.random() * positionX + 100);
+        circle[i].style.left = initX + 'px';
+      }
+      setTimeout(function () {
+        for ( var j = 0; j < circleNumber; j++ ){
+          var random = Math.random();
+          var offSetX = Math.floor(Math.random() * positionX + ( -positionX * .62));  //粒子左右方向
+          circle[j].style.transform = 'translate(' + offSetX + 'px,' + ( -positionY + 20) + 'px)'; // 粒子的动向步进
+          circle[j].style.opacity = '0';
+          circle[j].style.transitionDelay = Math.floor(random * 25 + 3) + 's'; //粒子延时
+          circle[j].style.transitionDuration = Math.floor(random * 45 + 30) + 's';  //粒子总用时
+        }
+      }, 1000);
+    })();
+    container.appendChild(circleAll);
+  }
+  function storyAnimation() {
+    var aLi = document.querySelectorAll('#storyBoard p'),
+        count = 0,
+        aLiLen = aLi.length;
+
+    for ( var i = 0; i < aLiLen; i++ ){
+        aLi[i].style.transitionDelay = count + 's';
+        aLi[i].style.opacity = '1';
+        count += .3;
+      }
+  }
+  window.onload = function () {
+    eventSet.keyboardEvents();
+    storyAnimation();
+  };
+  (function runAnimation() {
+    setCircle(50);
+    setInterval(function () {
+      setCircle(40);
+    }, 65000);
+  })();
+  userSet.navSet();
+//main end
 })(jQuery);
