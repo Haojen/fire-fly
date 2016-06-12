@@ -1,0 +1,13 @@
+{
+  "name": "light-cricle",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "jquery.cookie": "^1.4.1",
+    "bootstrap-sass": "^3.3.6"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
